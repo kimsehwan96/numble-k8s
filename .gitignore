@@ -1,0 +1,6 @@
+.DS_Store
+.terraform
+.terraform.lock.hcl
+export-auth.sh
+terraform.tfstate
+variables.tf
