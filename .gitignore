@@ -3,4 +3,5 @@
 .terraform.lock.hcl
 export-auth.sh
 terraform.tfstate
+terraform.tfstate.backup
 variables.tf
