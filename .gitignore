@@ -5,3 +5,4 @@ export-auth.sh
 terraform.tfstate
 terraform.tfstate.backup
 variables.tf
+numble-cluster-login-key.pem
