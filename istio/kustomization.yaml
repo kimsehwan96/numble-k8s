@@ -1,0 +1,6 @@
+namespace: istio-system
+
+resources:
+  - ./istio-namespace.yaml
+  - ./istio-ingressclass.yaml
+  - ./istio.yaml

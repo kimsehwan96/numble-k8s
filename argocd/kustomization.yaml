@@ -1,0 +1,16 @@
+namespace: argocd
+
+resources:
+  - ./argocd-namespace.yaml
+
+helmCharts:
+  - name: argo-cd
+    includeCRDs: true
+    repo: https://argoproj.github.io/argo-helm
+    releaseName: argo-cd
+    version: 5.28.0
+    namespace: argocd
+    valuesInline:
+      cm:
+        parameters:
+          server.insecure: true
