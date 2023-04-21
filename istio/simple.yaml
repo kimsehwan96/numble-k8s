@@ -16,10 +16,11 @@ spec:
       - name: istio-ingressgateway
         enabled: true
         k8s:
-          serviceAnnotations:
-            service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: '*'
           hpaSpec:
             minReplicas: 1
+          serviceAnnotations:
+            service.beta.kubernetes.io/ncloud-load-balancer-layer-type: "nlb"
+            service.beta.kubernetes.io/ncloud-load-balancer-internal: "false"
           service:
             ports:
               - port: 80
@@ -28,9 +29,10 @@ spec:
               - port: 443
                 targetPort: 8443
                 name: https
-              - port: 31400
-                targetPort: 31400
-                name: tcp
-              - port: 15443
-                targetPort: 15443
-                name: tls
+              # 현재 도메인을 사용하지 않는 상태에서, 앱을 ingress를 통해 노출하기 위해 
+              - name: argocd
+                port: 30001
+                targetPort: 30001
+              - name: nginx
+                port: 30002
+                targetPort: 30002

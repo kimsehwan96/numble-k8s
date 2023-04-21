@@ -2,7 +2,8 @@ namespace: argocd
 
 resources:
   - ./argocd-namespace.yaml
-
+  #- ./argocd-gateway.yaml
+  #- ./argocd-virtualservice.yaml
 helmCharts:
   - name: argo-cd
     includeCRDs: true
@@ -11,6 +12,6 @@ helmCharts:
     version: 5.28.0
     namespace: argocd
     valuesInline:
-      cm:
-        parameters:
+      configs:
+        params:
           server.insecure: true

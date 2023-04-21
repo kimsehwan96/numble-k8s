@@ -2,5 +2,7 @@ namespace: istio-system
 
 resources:
   - ./istio-namespace.yaml
-  - ./istio-ingressclass.yaml
   - ./istio.yaml
+  - ./istio-ingressclass.yaml
+  - ./istio-gateway.yaml
+  - ./istio-virtualservice.yaml

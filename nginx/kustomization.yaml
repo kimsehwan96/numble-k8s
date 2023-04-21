@@ -4,3 +4,5 @@ resources:
   - ./nginx-namespace.yaml
   - ./nginx-deployment.yaml
   - ./nginx-service.yaml
+  #- ./nginx-gateway.yaml
+  #- ./nginx-virtualservice.yaml

@@ -1,0 +1,22 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: istio-gateway
+  namespace: istio-system
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+          number: 30001
+          name: argocd
+          protocol: HTTP
+      hosts:
+        - "*"
+    - port:
+          number: 30002
+          name: nginx
+          protocol: HTTP
+      hosts:
+        - "*"
+

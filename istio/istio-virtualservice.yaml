@@ -1,0 +1,29 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: istio-virtualservice
+  namespace: istio-system
+spec:
+  gateways:
+    - istio-gateway
+  hosts:
+    - "*"
+  http:
+    - match:
+      - authority:
+          exact: "istio-syste-istio-ingres-da4cf-16957343-bb773de71644.kr.lb.naverncp.com:30002"
+        port: 30002
+      route:
+        - destination: 
+            host: nginx-service.nginx.svc.cluster.local
+            port:
+              number: 80
+    - match:
+      - authority:
+          exact: "istio-syste-istio-ingres-da4cf-16957343-bb773de71644.kr.lb.naverncp.com:30001"
+        port: 30001
+      route:
+        - destination:
+            host: argo-cd-argocd-server.argocd.svc.cluster.local
+            port:
+              number: 80
