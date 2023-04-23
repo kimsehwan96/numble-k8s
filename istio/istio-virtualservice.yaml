@@ -11,7 +11,7 @@ spec:
   http:
     - match:
       - authority:
-          exact: "istio-syste-istio-ingres-da4cf-16957343-bb773de71644.kr.lb.naverncp.com:30002"
+          exact: "istio-syste-istio-ingres-86eca-16974564-ed4c34960e26.kr.lb.naverncp.com:30002"
         port: 30002
       route:
         - destination: 
@@ -20,7 +20,7 @@ spec:
               number: 80
     - match:
       - authority:
-          exact: "istio-syste-istio-ingres-da4cf-16957343-bb773de71644.kr.lb.naverncp.com:30001"
+          exact: "istio-syste-istio-ingres-86eca-16974564-ed4c34960e26.kr.lb.naverncp.com:30001"
         port: 30001
       route:
         - destination:
