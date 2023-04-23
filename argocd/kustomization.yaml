@@ -17,9 +17,6 @@ helmCharts:
         containerSecurityContext:
           seccompProfile:
             type: Unconfined
-        # env:
-        #   - name: ARGOCD_GPG_ENABLED
-        #     value: 'false'
       configs:
         cm:
           application.instanceLabelKey: app.kubernetes.io/instance

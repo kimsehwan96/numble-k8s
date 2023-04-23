@@ -1,0 +1,8 @@
+namespace: elastic-system
+
+helmCharts:
+  - name: elasticsearch
+    version: 8.5.0
+    namespace: elastic-system
+    repo: https://helm.elastic.co
+    releaseName: elasticsearch

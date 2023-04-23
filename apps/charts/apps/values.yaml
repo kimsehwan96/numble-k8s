@@ -17,3 +17,5 @@ apps:
         name: istio-validator-istio-system   
   - name: eck-operator
     namespace: elastic-system
+  - name: eck-elasticsearch
+    namespace: elastic-system
