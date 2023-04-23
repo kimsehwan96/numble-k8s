@@ -1,0 +1,12 @@
+namespace: elastic-system
+
+resources:
+  - ./eck-namespace.yaml
+
+helmCharts:
+  - name: eck-operator
+    includeCRDs: true
+    repo: https://helm.elastic.co
+    releaseName: eck-operator
+    version: 2.6.1
+    namespace: elastic-system

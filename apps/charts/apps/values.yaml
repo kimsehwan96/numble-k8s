@@ -12,3 +12,5 @@ apps:
         kind: ValidatingWebhookConfiguration
         jqPathExpressions:
           - .webhooks[0].failurePolicy
+  - name: eck-operator
+    namespace: elastic-system
