@@ -28,27 +28,5 @@ helmCharts:
               - CiliumIdentity
               clusters:
               - "*"
-          resource.customizations: |
-            networking.k8s.io/Ingress:
-              health.lua: |
-                  hs = {}
-                  hs.status = "Healthy"
-                  return hs
-          resource.customizations.ignoreDifferences.admissionregistration.k8s.io_ValidatingWebhookConfiguration:
-            |
-            jqPathExpressions:
-              - '.webhooks[]?.clientConfig.caBundle'
-          resource.customizations.ignoreDifferences.apps_StatefulSet: |
-            jqPathExpressions:
-              - '.spec.volumeClaimTemplates[]?.apiVersion'
-              - '.spec.volumeClaimTemplates[]?.kind'
-          resource.customizations.ignoreDifferences.external-secrets.io_ExternalSecret:
-            |
-            jqPathExpressions:
-              - '.spec.dataFrom[]?.extract.conversionStrategy'
-              - '.spec.dataFrom[]?.extract.decodingStrategy'
-              - '.spec.data[]?.remoteRef.conversionStrategy'
-              - '.spec.data[]?.remoteRef.decodingStrategy'
-
         params:
           server.insecure: true
