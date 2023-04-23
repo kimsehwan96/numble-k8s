@@ -15,6 +15,6 @@ helmCharts:
           service:
             spec:
               type: ClusterIP
-            tls:
-              selfSignedCertificate:
-                disabled: true
+          tls:
+            selfSignedCertificate:
+              disabled: true
