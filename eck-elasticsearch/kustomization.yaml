@@ -2,7 +2,7 @@ namespace: elastic-system
 
 helmCharts:
   - name: elasticsearch
-    version: 8.5.0
+    version: 0.3.0 # this is version for helm chart. not elasticsearch version
     namespace: elastic-system
     repo: https://helm.elastic.co
     releaseName: elasticsearch
