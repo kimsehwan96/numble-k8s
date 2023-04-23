@@ -1,6 +1,8 @@
 repoURL: https://github.com/kimsehwan96/numble-k8s
 
 apps:
+  - name: apps
+    namespace: argocd
   - name: argocd
     namespace: argocd
   - name: nginx
