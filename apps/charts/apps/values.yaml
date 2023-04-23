@@ -10,9 +10,10 @@ apps:
   - name: istio
     namespace: istio-system
     ignoreDifferences:
-      - group: admissionregistration.k8s.io/v1
+      - group: admissionregistration.k8s.io
         kind: ValidatingWebhookConfiguration
-        jqPathExpressions:
-          - .webhooks[0].failurePolicy
+        name: istiod-default-validator
+        jsonPointers:
+          - /webhooks/0/failurePolicy
   - name: eck-operator
     namespace: elastic-system
