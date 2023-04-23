@@ -17,6 +17,11 @@ apps:
         name: istio-validator-istio-system   
   - name: eck-operator
     namespace: elastic-system
+    ignoreDifferences:
+      - group: admissionregistration.k8s.io
+        kind: ValidatingWebhookConfiguration
+        jqPathExpressions:
+          - .webhooks[]?.clientConfig.caBundle
   - name: eck-elasticsearch
     namespace: elastic-system
   - name: eck-kibana
