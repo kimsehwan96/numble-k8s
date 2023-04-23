@@ -1,0 +1,9 @@
+repoURL: https://github.com/kimsehwan96/numble-k8s
+
+apps:
+  - name: argocd
+    namespace: argocd
+  - name: nginx
+    namespace: nginx
+  - name: istio
+    namespace: istio-system

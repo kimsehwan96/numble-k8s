@@ -12,6 +12,46 @@ helmCharts:
     version: 5.28.0
     namespace: argocd
     valuesInline:
+      fullnameOverride: argocd
+      repoServer:
+        containerSecurityContext:
+          seccompProfile:
+            type: Unconfined
+        # env:
+        #   - name: ARGOCD_GPG_ENABLED
+        #     value: 'false'
       configs:
+        cm:
+          application.instanceLabelKey: app.kubernetes.io/instance
+          kustomize.buildOptions: --enable-alpha-plugins --enable-helm --load-restrictor LoadRestrictionsNone
+          resource.exclusions: |
+            - apiGroups:
+              - cilium.io
+              kinds:
+              - CiliumIdentity
+              clusters:
+              - "*"
+          resource.customizations: |
+            networking.k8s.io/Ingress:
+              health.lua: |
+                  hs = {}
+                  hs.status = "Healthy"
+                  return hs
+          resource.customizations.ignoreDifferences.admissionregistration.k8s.io_ValidatingWebhookConfiguration:
+            |
+            jqPathExpressions:
+              - '.webhooks[]?.clientConfig.caBundle'
+          resource.customizations.ignoreDifferences.apps_StatefulSet: |
+            jqPathExpressions:
+              - '.spec.volumeClaimTemplates[]?.apiVersion'
+              - '.spec.volumeClaimTemplates[]?.kind'
+          resource.customizations.ignoreDifferences.external-secrets.io_ExternalSecret:
+            |
+            jqPathExpressions:
+              - '.spec.dataFrom[]?.extract.conversionStrategy'
+              - '.spec.dataFrom[]?.extract.decodingStrategy'
+              - '.spec.data[]?.remoteRef.conversionStrategy'
+              - '.spec.data[]?.remoteRef.decodingStrategy'
+
         params:
           server.insecure: true

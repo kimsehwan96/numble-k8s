@@ -24,6 +24,6 @@ spec:
         port: 30001
       route:
         - destination:
-            host: argo-cd-argocd-server.argocd.svc.cluster.local
+            host: argocd-server.argocd.svc.cluster.local
             port:
               number: 80
