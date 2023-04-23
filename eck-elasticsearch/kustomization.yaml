@@ -1,8 +1,0 @@
-namespace: elastic-system
-
-helmCharts:
-  - name: eck-elasticsearch
-    version: 0.3.0 # this is version for helm chart. not elasticsearch version
-    namespace: elastic-system
-    repo: https://helm.elastic.co
-    releaseName: elasticsearch
