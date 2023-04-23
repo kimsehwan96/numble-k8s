@@ -7,3 +7,8 @@ apps:
     namespace: nginx
   - name: istio
     namespace: istio-system
+    ignoreDifferences:
+      - group: admissionregistration.k8s.io/v1
+        kind: ValidatingWebhookConfiguration
+        jqPathExpressions:
+          - .webhooks[0].failurePolicy

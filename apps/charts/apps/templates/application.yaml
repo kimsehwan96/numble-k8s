@@ -20,4 +20,11 @@ spec:
   ignoreDifferences:
     {{- toYaml .ignoreDifferences | nindent 4 }}
   {{- end }}
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true
 {{- end }}
