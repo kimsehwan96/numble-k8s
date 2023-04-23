@@ -10038,6 +10038,8 @@ spec:
               protocol: TCP
             - containerPort: 30002
               protocol: TCP
+            - containerPort: 30003
+              protocol: TCP
             - containerPort: 15090
               protocol: TCP
               name: http-envoy-prom
@@ -10696,6 +10698,10 @@ spec:
     port: 30002
     protocol: TCP
     targetPort: 30002
+  - name: kibana
+    port: 30003
+    protocol: TCP
+    targetPort: 30003
   selector:
     app: istio-ingressgateway
     istio: ingressgateway

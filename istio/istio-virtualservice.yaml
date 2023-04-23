@@ -11,6 +11,15 @@ spec:
   http:
     - match:
       - authority:
+          exact: "istio-syste-istio-ingres-86eca-16974564-ed4c34960e26.kr.lb.naverncp.com:30001"
+        port: 30001
+      route:
+        - destination:
+            host: argocd-server.argocd.svc.cluster.local
+            port:
+              number: 80
+    - match:
+      - authority:
           exact: "istio-syste-istio-ingres-86eca-16974564-ed4c34960e26.kr.lb.naverncp.com:30002"
         port: 30002
       route:
@@ -20,10 +29,10 @@ spec:
               number: 80
     - match:
       - authority:
-          exact: "istio-syste-istio-ingres-86eca-16974564-ed4c34960e26.kr.lb.naverncp.com:30001"
-        port: 30001
+          exact: "istio-syste-istio-ingres-86eca-16974564-ed4c34960e26.kr.lb.naverncp.com:30003"
+        port: 30003
       route:
-        - destination:
-            host: argocd-server.argocd.svc.cluster.local
+        - destination: 
+            host: kibana-eck-kibana-kb-http.elastic-system.svc.cluster.local
             port:
-              number: 80
+              number: 5601

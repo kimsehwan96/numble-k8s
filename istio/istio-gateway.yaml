@@ -19,4 +19,10 @@ spec:
           protocol: HTTP
       hosts:
         - "*"
+    - port:
+          number: 30003
+          name: kibana
+          protocol: HTTP
+      hosts:
+        - "*"
 

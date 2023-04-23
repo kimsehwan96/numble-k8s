@@ -36,3 +36,6 @@ spec:
               - name: nginx
                 port: 30002
                 targetPort: 30002
+              - name: kibana
+                port: 30003
+                targetPort: 30003
