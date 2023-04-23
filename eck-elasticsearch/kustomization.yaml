@@ -4,3 +4,4 @@ helmCharts:
   - name: eck-elasticsearch
     version: 0.2.0
     namespace: elastic-system
+    releaseName: elasticsearch
