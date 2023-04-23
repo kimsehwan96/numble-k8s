@@ -10,7 +10,7 @@ helmCharts:
       spec:
         count: 1
         elasticsearchRef:
-          name: eck-elasticsearch
+          name: elasticsearch-eck-elasticsearch
         http:
           service:
             spec:
