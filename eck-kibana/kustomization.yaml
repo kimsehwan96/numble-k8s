@@ -11,7 +11,7 @@ helmCharts:
         count: 1
         elasticsearchRef:
           name: eck-elasticsearch
-        https:
+        http:
           service:
             spec:
               type: ClusterIP
