@@ -19,3 +19,5 @@ apps:
     namespace: elastic-system
   - name: eck-elasticsearch
     namespace: elastic-system
+  - name: eck-kibana
+    namespace: elastic-system

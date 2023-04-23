@@ -1,0 +1,20 @@
+namespace: elastic-system
+
+helmCharts:
+  - name: eck-kibana
+    version: 0.2.0
+    namespace: elastic-system
+    releaseName: kibana
+    valuesInline:
+      version: 8.5.0
+      spec:
+        count: 1
+        elasticsearchRef:
+          name: eck-elasticsearch
+        https:
+          service:
+            spec:
+              type: ClusterIP
+            tls:
+              selfSignedCertificate:
+                disabled: true
