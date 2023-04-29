@@ -1,0 +1,99 @@
+namespace: elastic-system
+
+helmCharts:
+  - name: eck-beats
+    version: 0.2.0
+    namespace: elastic-system
+    releaseName: eck-beats
+    repo: https://helm.elastic.co
+    valuesInline:
+      version: 8.5.0
+      spec:
+        type: filebeat
+        elasticsearchRef:
+          name: elasticsearch-eck-elasticsearch
+        kibanaRef:
+          name: kibana-eck-kibana
+        daemonSet:
+          podTemplate:
+            spec:
+              dnsPolicy: ClusterFirstWithHostNet
+              hostNetwork: true
+              serviceAccountName: filebeat
+              automountServiceAccountToken: true
+              securityContext:
+                runAsUser: 0
+              containers:
+                - name: filebeat
+                  volumeMounts:
+                    - name: varlogcontainers
+                      mountPath: /var/log/containers
+                    - name: varlogpods
+                      mountPath: /var/log/pods
+                    - name: varlibdockercontainers
+                      mountPath: /var/lib/docker/containers
+                    - name: varrsyslog
+                      mountPath: /var/rsyslog
+                  env:
+                    - name: NODE_NAME
+                      valueFrom:
+                        fieldRef:
+                          fieldPath: spec.nodeName
+                  resources:
+                    requests:
+                      cpu: 100m
+                      memory: 100Mi
+                    limits:
+                      cpu: 1000m
+                      memory: 500Mi
+              volumes:
+                - name: varlogcontainers
+                  hostPath:
+                    path: /var/log/containers
+                - name: varlogpods
+                  hostPath:
+                    path: /var/log/pods
+                - name: varlibdockercontainers
+                  hostPath:
+                    path: /var/lib/docker/containers
+                - name: varrsyslog
+                  hostPath:
+                    path: /var/log
+      config:
+        filebeat:
+          autodiscover:
+            providers:
+              - type: kubernetes
+                node: ${NODE_NAME}
+                hints:
+                  enabled: true
+                  default_config:
+                    type: container
+                    paths: ['/var/log/containers/*${data.kubernetes.container.id}.log']
+        processors:
+          - add_cloud_metadata: {}
+          - add_host_metadata: {}
+      clusterRole:
+        name: filebeat
+        rules:
+          - apiGroups: [''] # "" indicates the core API group
+            resources:
+              - namespaces
+              - pods
+              - nodes
+            verbs:
+              - get
+              - watch
+              - list          
+      serviceAccount:
+        name: filebeat
+      clusterRoleBinding:
+        name: filebeat
+        subjects:
+          - kind: ServiceAccount
+            name: filebeat
+            namespace: elastic-system
+        roleRef:
+          kind: ClusterRole
+          name: filebeat
+          apiGroup: rbac.authorization.k8s.io

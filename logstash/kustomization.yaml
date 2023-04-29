@@ -1,0 +1,52 @@
+namespace: elastic-system
+
+helmCharts:
+  - name: logstash
+    version: 8.5.1
+    namespace: elastic-system
+    releaseName: logstash
+    repo: https://helm.elastic.co
+    valuesInline:
+      version: 8.5.1
+      logstashConfig:
+        logstash.yml: |
+          http.host: "0.0.0.0"
+          xpack.monitoring.elasticsearch.hosts: [ "http://elasticsearch-eck-elasticsearch-es-http:9200" ]
+          xpack.monitoring.elasticsearch.ssl.verification_mode: none
+          xpack.monitoring.elasticsearch.username: "elastic"
+          xpack.monitoring.elasticsearch.password: "${elastic}"
+      logstashPipeline:
+        logstash.conf: |
+          input {
+            beats {
+              port => 5044
+            }
+          }
+          filter {
+            mutate {
+              remove_field => [ "agent", "container", "ecs", "event", "input", "log", "tags" ]
+            }
+            mutate {
+              rename => {
+                "[host][name]" => "node"
+                "[kubernetes][namespace]" => "namespace"
+                "[kubernetes][pod][name]" => "pod"
+                "[kubernetes][container][name]" => "container"
+              }
+            }
+            mutate {
+              remove_field => [ "host", "kubernetes" ]
+            }
+          }
+          output {
+            elasticsearch {
+              hosts => [ "http://elasticsearch-eck-elasticsearch-es-http:9200" ]
+              ssl_certificate_verification => false
+              user => "elastic"
+              password => "${elastic}"
+              index => "stdout" 
+            }
+          }
+      envFrom:
+        - secretRef:
+            name: elasticsearch-eck-elasticsearch-es-elastic-user
