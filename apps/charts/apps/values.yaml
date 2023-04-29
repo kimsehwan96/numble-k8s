@@ -26,3 +26,7 @@ apps:
     namespace: elastic-system
   - name: eck-kibana
     namespace: elastic-system
+  - name: logstash
+    namespace: elastic-system
+  - name: eck-beats
+    namespace: elastic-system
