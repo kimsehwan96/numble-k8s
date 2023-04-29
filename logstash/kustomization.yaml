@@ -47,6 +47,13 @@ helmCharts:
               index => "stdout" 
             }
           }
+      service:
+        type: ClusterIP
+        ports:
+          - name: beats
+            port: 5044
+            protocol: TCP
+            targetPort: 5044
       envFrom:
         - secretRef:
             name: elasticsearch-eck-elasticsearch-es-elastic-user
