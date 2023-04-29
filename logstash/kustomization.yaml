@@ -40,7 +40,7 @@ helmCharts:
           }
           output {
             elasticsearch {
-              hosts => [ "http://elasticsearch-eck-elasticsearch-es-http:9200" ]
+              hosts => [ "http://elasticsearch-eck-elasticsearch-es-internal-http:9200" ]
               ssl_certificate_verification => false
               user => "elastic"
               password => "${elastic}"
