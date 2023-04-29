@@ -5,13 +5,12 @@ helmCharts:
     version: 0.2.0
     namespace: elastic-system
     releaseName: eck-beats
-    repo: https://helm.elastic.co
     valuesInline:
       version: 8.5.0
       spec:
         type: filebeat
         elasticsearchRef:
-          name: elasticsearch-eck-elasticsearch
+         name: elasticsearch-eck-elasticsearch
         kibanaRef:
           name: kibana-eck-kibana
         daemonSet:
@@ -59,20 +58,24 @@ helmCharts:
                 - name: varrsyslog
                   hostPath:
                     path: /var/log
-      config:
-        filebeat:
-          autodiscover:
-            providers:
-              - type: kubernetes
-                node: ${NODE_NAME}
-                hints:
-                  enabled: true
-                  default_config:
-                    type: container
-                    paths: ['/var/log/containers/*${data.kubernetes.container.id}.log']
-        processors:
-          - add_cloud_metadata: {}
-          - add_host_metadata: {}
+        config:
+          filebeat:
+            autodiscover:
+              providers:
+                - type: kubernetes
+                  node: ${NODE_NAME}
+                  hints:
+                    enabled: true
+                    default_config:
+                      type: container
+                      paths: ['/var/log/containers/*${data.kubernetes.container.id}.log']
+          processors:
+            - add_cloud_metadata: {}
+            - add_host_metadata: {}
+          output.logstash:
+            hosts: [ logstash-logstash:5044 ]
+          output.elasticsearch:
+            enabled: false
       clusterRole:
         name: filebeat
         rules:
