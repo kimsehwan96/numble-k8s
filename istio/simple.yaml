@@ -39,3 +39,6 @@ spec:
               - name: kibana
                 port: 30003
                 targetPort: 30003
+              - name: grafana
+                port: 30004
+                targetPort: 30004

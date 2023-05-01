@@ -10040,6 +10040,8 @@ spec:
               protocol: TCP
             - containerPort: 30003
               protocol: TCP
+            - containerPort: 30004
+              protocol: TCP
             - containerPort: 15090
               protocol: TCP
               name: http-envoy-prom
@@ -10702,6 +10704,10 @@ spec:
     port: 30003
     protocol: TCP
     targetPort: 30003
+  - name: grafana
+    port: 30004
+    protocol: TCP
+    targetPort: 30004
   selector:
     app: istio-ingressgateway
     istio: ingressgateway
