@@ -36,3 +36,12 @@ spec:
             host: kibana-eck-kibana-kb-http.elastic-system.svc.cluster.local
             port:
               number: 5601
+    - match:
+      - authority:
+          exact: "istio-syste-istio-ingres-86eca-16974564-ed4c34960e26.kr.lb.naverncp.com:30004"
+        port: 30004
+      route:
+        - destination: 
+            host: kube-prometheus-stack-grafana.kube-prometheus-stack.svc.cluster.local
+            port:
+              number: 80

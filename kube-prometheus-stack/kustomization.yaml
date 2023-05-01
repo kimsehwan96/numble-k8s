@@ -1,0 +1,75 @@
+namespace: kube-prometheus-stack
+
+resources:
+  - ./kube-prometheus-stack-namespace.yaml
+
+helmCharts:
+  - name: kube-prometheus-stack
+    version: 45.23.0
+    namespace: kube-prometheus-stack
+    releaseName: kube-prometheus-stack
+    includeCRDs: true
+    repo: https://prometheus-community.github.io/helm-charts
+    valuesInline:
+      nameOverride: kube-prometheus-stack
+      fullnameOverride: kube-prometheus-stack
+      namespaceOverride: kube-prometheus-stack
+      defaultRules:
+        create: false
+        rules:
+          alertmanager: true
+          etcd: true
+          configReloaders: true
+          general: true
+          k8s: true
+          kubeApiserverAvailability: true
+          kubeApiserverBurnrate: true
+          kubeApiserverHistogram: true
+          kubeApiserverSlos: true
+          kubeControllerManager: true
+          kubelet: true
+          kubeProxy: true
+          kubePrometheusGeneral: true
+          kubePrometheusNodeRecording: true
+          kubernetesApps: true
+          kubernetesResources: true
+          kubernetesStorage: true
+          kubernetesSystem: true
+          kubeSchedulerAlerting: true
+          kubeSchedulerRecording: true
+          kubeStateMetrics: true
+          network: true
+          node: true
+          nodeExporterAlerting: true
+          nodeExporterRecording: true
+          prometheus: true
+          prometheusOperator: true
+      grafana:
+        enabled: true
+        defaultDashboardsEnabled: true
+        defaultDashboardsTimezone: utc
+        sidecar:
+          dashboards:
+            enabled: true
+            label: grafana_dashboard
+          datasources:
+            enabled: true
+            defaultDatasourceEnabled: true
+            isDefaultDatasource: true
+            uid: prometheus
+            createPrometheusReplicasDatasources: false
+            label: grafana_datasource
+            labelValue: '1'
+        service:
+          portName: http-web
+          type: ClusterIP
+        serviceMonitor:
+          enabled: true
+          path: '/metrics'
+          interval: ''
+          scheme: http
+          tlsConfig: {}
+          scrapeTimeout: 30s
+      nodeExporter:
+        enabled: true
+        

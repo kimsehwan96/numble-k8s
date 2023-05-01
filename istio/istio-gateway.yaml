@@ -25,4 +25,10 @@ spec:
           protocol: HTTP
       hosts:
         - "*"
+    - port:
+          number: 30004
+          name: grafana
+          protocol: HTTP
+      hosts:
+        - "*"
 
