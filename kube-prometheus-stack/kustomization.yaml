@@ -3,6 +3,7 @@ namespace: kube-prometheus-stack
 resources:
   - ./kube-prometheus-stack-namespace.yaml
 
+
 helmCharts:
   - name: kube-prometheus-stack
     version: 45.23.0
@@ -16,7 +17,7 @@ helmCharts:
       namespaceOverride: kube-prometheus-stack
       prometheusSpec:
         storageSpec:
-          volumeClaimTemplate:
+          volumeClaimTemplate: # It doesn't work.. !
             spec:
               storageClassName: nks-block-storage
               accessModes:
