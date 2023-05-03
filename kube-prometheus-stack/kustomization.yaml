@@ -14,6 +14,16 @@ helmCharts:
       nameOverride: kube-prometheus-stack
       fullnameOverride: kube-prometheus-stack
       namespaceOverride: kube-prometheus-stack
+      prometheusSpec:
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: nks-block-storage
+              accessModes:
+                - ReadWriteOnce
+              resources:
+                requests:
+                  storage: 30Gi
       defaultRules:
         create: false
         rules:
