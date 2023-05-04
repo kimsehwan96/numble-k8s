@@ -1,9 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment
+  name: {{ template "nginx.fullname" . }}
+  namespace: {{ template "nginx.namespace" . }}
   labels:
     app: nginx
+    app.kubernetes.io/name: '{{ template "nginx.name" .}}'
 spec:
   replicas: 1
   selector:
@@ -16,7 +18,8 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:1.14.2
+        image: "{{ .Values.nginx.image }}:{{ .Values.nginx.tag }}"
+        imagePullPolicy: "{{ .Values.nginx.imagePullPolicy }}"
         ports:
         - containerPort: 80
     

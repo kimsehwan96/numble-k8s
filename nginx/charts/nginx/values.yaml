@@ -1,0 +1,4 @@
+nginx:
+  image: nginx
+  tag: 1.19.6
+  imagePullPolicy: "Always"

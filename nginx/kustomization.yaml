@@ -2,7 +2,9 @@ namespace: nginx
 
 resources:
   - ./nginx-namespace.yaml
-  - ./nginx-deployment.yaml
-  - ./nginx-service.yaml
-  #- ./nginx-gateway.yaml
-  #- ./nginx-virtualservice.yaml
+
+helmCharts:
+  - name: nginx
+    version: 0.0.1
+    namespace: nginx
+    releaseName: nginx
