@@ -6,3 +6,22 @@ Prometheus 및 Grafana 의 파드가 재시작 되더라도 데이터가 유지�
 
 따라서 helmChart 에서 특정 서비스들이 pvc 를 생성하는 템플릿이 있고, 해당하는 value를 반영 할 수 있다면 helmChart 를 통해 생성하고. 이 때에는 보통 volumeClaimTemplate 과 같은 명칭으로 생성하게 하여서 `persistenceVolumeClaim`을 어떻게 할 것인지. (스토리지 클래스, 용량 등)을 지정 할 수 있습니다. 
 
+## Prometheus Persistence
+
+Prometheus helmChart value 내에서 아래와 같이 지정하면 PVC 를 생성하고 PV와 Bind 하여서 파드가 재시작되더라도 데이터가 유지되도록 할 수 있습니다.
+
+```yaml
+      prometheus:
+        prometheusSpec:
+          storageSpec:
+            volumeClaimTemplate:
+              spec:
+                storageClassName: nks-block-storage
+                accessModes:
+                  - ReadWriteOnce
+                resources:
+                  requests:
+                    storage: 30Gi
+```
+
+![](./images/prometheus_pv.png)
