@@ -146,7 +146,7 @@ resource "ncloud_route" "nat_route" {
 
 resource "ncloud_network_interface" "bastion_network_interface" {
   name = "bastion-network-interface"
-  description = "bastion network interface
+  description = "bastion network interface"
   subnet_no = ncloud_subnet.public_subnet_1.id
   access_control_groups = [
     ncloud_nks_cluster.cluster.acg_no,
